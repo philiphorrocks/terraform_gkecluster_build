@@ -5,6 +5,7 @@ pipeline {
   environment {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "my-app:build-${env.BUILD_ID}"
+    PROJECT_ID  = "terraform-243812"
   }
 
   stages {
@@ -18,9 +19,9 @@ pipeline {
 
     stage('Build Immutable Docker Image') {
       steps {
-          script {
-                    docker_image = docker.build("${env.DOCKER_IMAGE_TAG}", '-f ./Dockerfile .')
-                }
+
+          sh 'docker build -t gcr.io/${PROJECT_ID}/hello-app:${env.DOCKER_IMAGE_TAG} .'
+          
             }
     }
  
