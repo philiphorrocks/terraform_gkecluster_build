@@ -20,7 +20,7 @@ pipeline {
     stage('Build Immutable Docker Image') {
       steps {
 
-          sh 'docker build -t gcr.io/${PROJECT_ID}/hello-app:$DOCKER_IMAGE_TAG .'
+          sh 'docker build -t gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG .'
           echo "List Docker imaage......"
           sh 'docker images'
           
@@ -43,7 +43,7 @@ pipeline {
     stage('Push Docker image to Repository') {
             steps {
                 echo "Pushing the Docker image to the registry"
-                sh 'docker push gcr.io/${PROJECT_ID}/hello-app:$DOCKER_IMAGE_TAG'
+                sh 'docker push gcr.io/${PROJECT_ID}/'
             }
         }
         stage('Deploy Image to GKE Cluster') {
