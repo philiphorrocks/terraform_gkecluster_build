@@ -1,20 +1,26 @@
-# terraform_gkecluster_build
-Terraform gke cluster build 
+# Hello Application example
 
-Terraform scrtipt to build out GKE cluster. 
+This example shows how to build and deploy a containerized Go web server
+application using [Kubernetes](https://kubernetes.io).
 
-How to use:
+Visit https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app
+to follow the tutorial and deploy this application on [Google Kubernetes
+Engine](https://cloud.google.com/kubernetes-engine).
 
-1) Create new Jenkins pipeline
-2) Configure the SCM job to use the Jenkinsfile provided in the reposittory
+This directory contains:
 
-Pre-requisite
+- `main.go` contains the HTTP server implementation. It responds to all HTTP
+  requests with a  `Hello, world!` response.
+- `Dockerfile` is used to build the Docker image for the application.
 
-You must create your Google account and anable access to the API
+This application is available as two Docker images, which respond to requests
+with different version numbers:
 
-Setup Jenkins Credentials
-Go back to your jenkins service, and make sure login with an admin account. Choose “Credentials” from the sidebar, then choose “Global credentials” (you can choose other domains as well), and click “Add Credentials”.
+- `gcr.io/google-samples/hello-app:1.0`
+- `gcr.io/google-samples/hello-app:2.0`
 
-Select “Google Service Account from private key” for the “Kind” field, and enter your project name ( myregistry in this example). Then upload the JSON private key we just downloaded in previous step.
-
-
+This example is used in many official/unofficial tutorials, some of them
+include:
+- [Kubernetes Engine Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart)
+- [Kubernetes Engine - Deploying a containerized web application](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app) tutorial
+- [Kubernetes Engine - Setting up HTTP Load Balancing](https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer) tutorial
