@@ -20,7 +20,7 @@ pipeline {
     stage('Build Immutable Docker Image') {
       steps {
 
-          sh 'docker build -t gcr.io/${PROJECT_ID}/hello-app:${env.DOCKER_IMAGE_TAG} .'
+          sh 'docker build -t gcr.io/${PROJECT_ID}/hello-app:v10.0 .'
           
             }
     }
