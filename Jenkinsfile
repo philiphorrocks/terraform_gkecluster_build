@@ -43,7 +43,7 @@ pipeline {
     stage('Push Docker image to Repository') {
             steps {
                 echo "Pushing the Docker image to the registry"
-                sh 'docker push gcr.io/${PROJECT_ID}/'
+                sh 'docker push gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG'
             }
         }
         stage('Deploy Image to GKE Cluster') {
