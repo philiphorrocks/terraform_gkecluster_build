@@ -3,7 +3,7 @@ pipeline {
   agent any
 
   environment {
-    SVC_ACCOUNT_KEY = credentials('tarraform-gcp-auth')
+    SVC_ACCOUNT_KEY = credentials('GKE-terraform')
   }
 
   stages {
