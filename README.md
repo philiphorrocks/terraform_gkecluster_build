@@ -6,7 +6,7 @@ Terraform scrtipt to build out GKE cluster.
 How to use:
 
 1) Create new Jenkins pipeline
-2) Configure the SCM job to user the Jenkinsfile prodided in the reposittory
+2) Configure the SCM job to use the Jenkinsfile provided in the reposittory
 
 Pre-requisite
 
