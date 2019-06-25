@@ -17,6 +17,23 @@ pipeline {
       }
     }
 
+
+   stage('Build and push Docker image to GCR') {
+
+      steps{
+      
+        script {
+          docker.withRegistry('','gcr:PROJECT_ID')  {
+
+          def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
+
+          /* Push the container to the custom Registry */
+          customImage.push()
+        }
+      }
+    }
+    }
+
     stage('TF Plan') {
       steps {
           sh 'terraform init'
@@ -28,22 +45,6 @@ pipeline {
       steps {
           sh 'terraform apply  -input=false myplan'
       }
-    }
-    
-    stage('Build and push Docker image to GCR') {
-
-      steps{
-      
-        script {
-          docker.withRegistry('','gcr[PROJECT_ID]')  {
-
-          def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
-
-          /* Push the container to the custom Registry */
-          customImage.push()
-        }
-      }
-    }
     }
 
     stage('Deploy Image to GKE Cluster') {
