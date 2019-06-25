@@ -6,6 +6,9 @@ pipeline {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "my-app:build-${env.BUILD_ID}"
     PROJECT_ID  = "terraform-243812"
+    REGISTRY = "https://eu.gcr.io"
+    REGISTRYCRED = 'google-gcr'
+
   }
 
   stages {
@@ -19,11 +22,10 @@ pipeline {
 
     stage('Build Immutable Docker Image') {
       steps {
-
-          sh 'docker build -t gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG .'
-          echo "List Docker imaage......"
-          sh 'docker images'
           
+        script {
+          docker.build REGISTRY + ":$BUILD_NUMBER"
+               }       
             }
     }
  
@@ -42,9 +44,9 @@ pipeline {
     
     stage('Push images') {
       steps{
-        docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
-            myContainer.push(gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG)
-            myContainer.push("latest")
+           // docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
+            //myContainer.push(gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG)
+            //myContainer.push("latest")
         }
       }
     }
