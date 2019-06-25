@@ -30,12 +30,12 @@ pipeline {
       }
     }
     
-    stage('Build and push Docker image to GCS') {
+    stage('Build and push Docker image to GCR') {
 
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/'+ PROJECT_ID, 'gcr:PROJECT_ID')  {
+          withDockerRegistry([ credentialsId: PROJECT_ID, url: "" ])  {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
