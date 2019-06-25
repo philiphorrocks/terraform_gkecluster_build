@@ -6,6 +6,8 @@ pipeline {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/test-app:${env.BUILD_ID}"
     GCR_PROJECT_ID  = "gcr:terraform-243812"
+    PROJECT_ID =  "terraform-243812"
+    GCR_PROJECT_ID  = "gcr:"
     GCLOUD_PATH =  "/opt/google-cloud-sdk/bin"
   }
 
@@ -48,9 +50,12 @@ pipeline {
       }
     }
 
-    stage('Authenticate gcloud client & List images in GCR') {
+    stage('Setup gloud access') {
             steps {
+
+                // setup gcloud access
                 sh '$GCLOUD_PATH/gcloud auth activate-service-account --key-file=gcpserviceaccount.json'
+                sh '$GCLOUD_PATH/gcloud config set core/project $PROJECT_ID'
                 sh '$GCLOUD_PATH/gcloud container images list'
             }
         }
