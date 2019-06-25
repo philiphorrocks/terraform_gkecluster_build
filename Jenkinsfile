@@ -35,7 +35,7 @@ pipeline {
       steps{
       
         script {
-          withDockerRegistry([ credentialsId: PROJECT_ID, url: "" ])  {
+          docker.withRegistry('','gcr[PROJECT_ID]')  {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
