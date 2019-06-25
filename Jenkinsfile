@@ -23,7 +23,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io', 'gcr:terraform-243812')  {
+          docker.withRegistry('https://eu.gcr.io/terraform-243812', 'gcr:terraform-243812')  {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
