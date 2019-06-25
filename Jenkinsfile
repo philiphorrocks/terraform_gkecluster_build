@@ -6,8 +6,9 @@ pipeline {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "my-app:build-${env.BUILD_ID}"
     PROJECT_ID  = "terraform-243812"
-    REGISTRY = "eu.gcr.io"
+    REGISTRY = "eu.gcr.io/terraform-243812"
     REGISTRYCRED = 'google-gcr'
+
 
   }
 
@@ -47,7 +48,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/' , 'gcr:[terraform-243812]') {
+          docker.withRegistry(REGISTRY , REGISTRYCRED) {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
