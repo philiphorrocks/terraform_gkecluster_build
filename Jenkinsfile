@@ -47,7 +47,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io', SVC_ACCOUNT_KEY) {
+          docker.withRegistry('https://eu.gcr.io', 'GKE-terraform') {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
