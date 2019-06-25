@@ -24,7 +24,7 @@ pipeline {
       }      
     }
 
-    stage('TF Apply') {terraform
+    stage('TF Apply') {
       steps {
           sh 'terraform apply  -input=false myplan'
       }
