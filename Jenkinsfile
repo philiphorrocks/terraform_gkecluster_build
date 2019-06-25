@@ -6,7 +6,7 @@ pipeline {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "my-app:build-${env.BUILD_ID}"
     PROJECT_ID  = "terraform-243812"
-    REGISTRY = "https://eu.gcr.io"
+    REGISTRY = "eu.gcr.io"
     REGISTRYCRED = 'google-gcr'
 
   }
