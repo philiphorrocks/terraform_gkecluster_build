@@ -25,10 +25,10 @@ pipeline {
           
         script {
           docker.build REGISTRY + ":$BUILD_NUMBER"
-               }       
-            }
+           }
+      }
     }
- 
+
     stage('TF Plan') {
       steps {
           sh 'terraform init'
@@ -49,11 +49,11 @@ pipeline {
             //myContainer.push("latest")
         }
       }
-    }
+    
+    
     stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
             }
         }
-    
-    }}
+  } 
