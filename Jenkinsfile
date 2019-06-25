@@ -50,6 +50,7 @@ pipeline {
 
     stage('List images in GCR') {
             steps {
+                sh "gcloud auth activate-service-account --key-file=gcpserviceaccount.json"
                 sh '$GCLOUD_PATH/gcloud container images list-tags $DOCKER_IMAGE_TAG'
             }
         }
