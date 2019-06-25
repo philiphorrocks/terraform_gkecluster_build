@@ -48,7 +48,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry(REGISTRY , REGISTRYCRED) {
+          withDockerRegistry(registry: [credentialsId: 'GKE-terraform'])  {
 
           def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
 
