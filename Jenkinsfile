@@ -42,8 +42,9 @@ pipeline {
       }
     }
     
-
+    stage('Push image to GCS') {
       
+      script {
         docker.withRegistry('https://eu.gcr.io', REGISTRYCRED) {
 
         def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
@@ -51,6 +52,8 @@ pipeline {
         /* Push the container to the custom Registry */
         customImage.push()
         }
+      }
+    }
 
     stage('Deploy Image to GKE Cluster') {
             steps {
@@ -58,4 +61,4 @@ pipeline {
             }
         }
   } 
-}
+ }
