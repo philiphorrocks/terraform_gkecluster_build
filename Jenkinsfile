@@ -24,7 +24,7 @@ pipeline {
       steps {
           
         script {
-          docker.build REGISTRY + "\" + PROJECT_ID + ":$BUILD_NUMBER"
+          docker.build REGISTRY + \ + PROJECT_ID + ":$BUILD_NUMBER"
            }
       }
     }
