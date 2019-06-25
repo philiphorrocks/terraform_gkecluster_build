@@ -44,6 +44,7 @@ pipeline {
     
     stage('Push images') {
       steps{
+        echo "Push images to GCR"
            // docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
             //myContainer.push(gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG)
             //myContainer.push("latest")
