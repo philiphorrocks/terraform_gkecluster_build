@@ -7,7 +7,6 @@ pipeline {
     DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/test-app:${env.BUILD_ID}"
     GCR_PROJECT_ID  = "gcr:terraform-243812"
     PROJECT_ID =  "terraform-243812"
-    GCR_PROJECT_ID  = "gcr:"
     GCLOUD_PATH =  "/opt/google-cloud-sdk/bin"
   }
 
