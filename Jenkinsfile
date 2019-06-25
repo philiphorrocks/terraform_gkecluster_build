@@ -10,6 +10,8 @@ pipeline {
     GCLOUD_PATH =  "/opt/google-cloud-sdk/bin"
     CLUSTER_NAME = "cluster1"
     ZONE = "europe-west1"
+    PORT = "8082"
+    APP_NAME = "HelloApp"
   }
 
   stages {
@@ -66,8 +68,8 @@ pipeline {
 
     stage('Deploy Image to GKE Cluster') {
             steps {
-                echo "Deploying the Docker image"
-                sh '$GCLOUD_PATH/kubectl run hello-web --image=$DOCKER_IMAGE_TAG --port 8080'
+                echo "Deploying the Docker image to " + $CLUSTER_NAME
+                sh '$GCLOUD_PATH/kubectl run $APP_NAME --image=$DOCKER_IMAGE_TAG --port $PORT'
                 sh '$GCLOUD_PATH/kubectl get pods'
             }
         }
