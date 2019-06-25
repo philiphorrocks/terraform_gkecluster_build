@@ -25,7 +25,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', GCR_PROJECT_ID)  {
+          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', 'gcr:$PROJECT_ID')  {
 
           def customImage = docker.build(DOCKER_IMAGE_TAG)
 
@@ -61,11 +61,11 @@ pipeline {
         }
 
     stage('Setup Kubernetes namespace'){
-           steps{
+           steps {
              
              //setup Dev namespace
 
-             sh '$GLOUD_PATH/kubectl create ns development'
+             sh '$GCLOUD_PATH/kubectl create ns Production'
 
 
            }
@@ -77,6 +77,8 @@ pipeline {
     stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
+                sh '$GCLOUD_PATH/kubectl run hello-web --image=$DOCKER_IMAGE_TAG --port 8080'
+                sh '$GCLOUD_PATH/kubectl get pods'
             }
         }
     } 
