@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
-    DOCKER_IMAGE_TAG = "terraform-243812:build-${env.BUILD_ID}"
+    DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/build:${env.BUILD_ID}"
     GCR_PROJECT_ID  = "gcr:terraform-243812"
   }
 
