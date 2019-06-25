@@ -20,14 +20,14 @@ pipeline {
       }
     }
 
-    stage('Build Immutable Docker Image') {
-      steps {
-          
-        script {
-          docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
-           }
-      }
-    }
+    //stage('Build Immutable Docker Image') {
+    // steps {
+    //      
+    //    script {
+    //      docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
+    //       }
+    //  }
+    //}
 
     stage('TF Plan') {
       steps {
@@ -44,20 +44,20 @@ pipeline {
     
     stage('Push images') {
       steps{
-        echo "Push images to GCR"
-            docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
-            docker.image(PROJECT_ID  + ":$BUILD_NUMBER").push('latest')
-            //myContainer.push(gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG)
-            //myContainer.push("latest")
-        }
+      
+        docker.withRegistry('https://eu.gcr.io', REGISTRYCRED) {
+
+        def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
       }
-    
-    
+    }
     stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
             }
         }
   } 
-}
+ }
 }
