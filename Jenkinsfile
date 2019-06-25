@@ -40,13 +40,14 @@ pipeline {
       }
     }
     
-    stage('Push Docker image to Repository') {
-            steps {
-                echo "Pushing the Docker image to the registry"
-                sh 'docker push gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG'
-            }
+    stage('Push images') {
+        docker.withRegistry('https://gcr.io', 'gcr:google-gcr') {
+            myContainer.push("gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG")
+            myContainer.push("latest")
         }
-        stage('Deploy Image to GKE Cluster') {
+    }
+
+    stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
             }
