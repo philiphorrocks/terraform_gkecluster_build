@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
-    DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/test-app:${env.BUILD_ID}"
+    DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/hello-app:v${env.BUILD_ID}"
     GCR_PROJECT_ID  = "gcr:terraform-243812"
     PROJECT_ID =  "terraform-243812"
     GCLOUD_PATH =  "/opt/google-cloud-sdk/bin"
@@ -25,7 +25,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/terraform-243812', GCR_PROJECT_ID)  {
+          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', GCR_PROJECT_ID)  {
 
           def customImage = docker.build(DOCKER_IMAGE_TAG)
 
@@ -55,9 +55,23 @@ pipeline {
                 // setup gcloud access
                 sh '$GCLOUD_PATH/gcloud auth activate-service-account --key-file=gcpserviceaccount.json'
                 sh '$GCLOUD_PATH/gcloud config set project $PROJECT_ID'
+                sh '$GCLOUD_PATH/gcloud config set compute/zone europe-west1'
                 sh '$GCLOUD_PATH/gcloud container images list-tags eu.gcr.io/terraform-243812/test-app'
             }
         }
+
+    stage('Setup Kubernetes namespace'){
+           steps{
+             
+             //setup Dev namespace
+
+             sh '$GLOUD_PATH/kubectl create ns development'
+
+
+           }
+
+
+    }
         
 
     stage('Deploy Image to GKE Cluster') {
