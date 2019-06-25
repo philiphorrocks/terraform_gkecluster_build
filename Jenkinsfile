@@ -54,8 +54,8 @@ pipeline {
 
                 // setup gcloud access
                 sh '$GCLOUD_PATH/gcloud auth activate-service-account --key-file=gcpserviceaccount.json'
-                sh '$GCLOUD_PATH/gcloud config set core/project $PROJECT_ID'
-                sh '$GCLOUD_PATH/gcloud container images list'
+                sh '$GCLOUD_PATH/gcloud config set project $PROJECT_ID'
+                sh '$GCLOUD_PATH/gcloud container images list-tags eu.gcr.io/terraform-243812/test-app'
             }
         }
         
