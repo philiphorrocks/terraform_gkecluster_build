@@ -42,8 +42,8 @@ pipeline {
       }
     }
     
-    stage('Push images') {
-      steps{
+    stage('Push image to GCS') {
+      
       
         docker.withRegistry('https://eu.gcr.io', REGISTRYCRED) {
 
@@ -51,8 +51,9 @@ pipeline {
 
         /* Push the container to the custom Registry */
         customImage.push()
-      }
+      
     }
+
     stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
