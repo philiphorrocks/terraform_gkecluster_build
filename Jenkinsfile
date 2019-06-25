@@ -25,7 +25,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', GCR_PROJECT_ID)  {
+          docker.withRegistry('https://eu.gcr.io', GCR_PROJECT_ID)  {
 
           def customImage = docker.build(DOCKER_IMAGE_TAG)
 
@@ -59,19 +59,6 @@ pipeline {
                 sh '$GCLOUD_PATH/gcloud container images list-tags eu.gcr.io/terraform-243812/test-app'
             }
         }
-
-    stage('Setup Kubernetes namespace'){
-           steps {
-             
-             //setup Dev namespace
-
-             sh '$GCLOUD_PATH/kubectl create ns Production'
-
-
-           }
-
-
-    }
         
 
     stage('Deploy Image to GKE Cluster') {
