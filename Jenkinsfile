@@ -8,7 +8,6 @@ pipeline {
     PROJECT_ID  = "terraform-243812"
     REGISTRY = "eu.gcr.io"
     REGISTRYCRED = 'google-gcr'
-    PROJECT_BUILD = PROJECT_ID + ":$BUILD_NUMBER"
 
   }
 
@@ -25,7 +24,7 @@ pipeline {
       steps {
           
         script {
-          docker.build REGISTRY  + PROJECT_BUILD
+          docker.build REGISTRY  + ":$BUILD_NUMBER"
            }
       }
     }
