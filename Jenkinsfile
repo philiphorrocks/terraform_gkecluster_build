@@ -6,6 +6,7 @@ pipeline {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
     DOCKER_IMAGE_TAG = "eu.gcr.io/terraform-243812/test-app:${env.BUILD_ID}"
     GCR_PROJECT_ID  = "gcr:terraform-243812"
+    GCLOUD_PATH =  "/opt/google-cloud-sdk/bin"
   }
 
   stages {
@@ -49,10 +50,11 @@ pipeline {
 
     stage('List images in GCR') {
             steps {
-                sh 'gcloud container images list-tags $DOCKER_IMAGE_TAG'
+                sh '$GCLOUD_PATH/gcloud container images list-tags $DOCKER_IMAGE_TAG'
             }
         }
         
+
     stage('Deploy Image to GKE Cluster') {
             steps {
                 echo "Deploying the Docker image"
