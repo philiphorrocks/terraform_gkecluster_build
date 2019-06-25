@@ -11,7 +11,7 @@ pipeline {
     CLUSTER_NAME = "cluster1"
     ZONE = "europe-west1"
     PORT = "8082"
-    APP_NAME = "HelloApp"
+    APP_NAME = "helloapp"
   }
 
   stages {
