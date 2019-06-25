@@ -68,7 +68,7 @@ pipeline {
 
     stage('Deploy Image to GKE Cluster') {
             steps {
-                echo "Deploying the Docker image to " + $CLUSTER_NAME
+                echo "Deploying the Docker image"
                 sh '$GCLOUD_PATH/kubectl run $APP_NAME --image=$DOCKER_IMAGE_TAG --port $PORT'
                 sh '$GCLOUD_PATH/kubectl get pods'
             }
