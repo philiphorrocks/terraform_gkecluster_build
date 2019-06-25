@@ -24,7 +24,7 @@ pipeline {
       steps {
           
         script {
-          docker.build REGISTRY  + ":$BUILD_NUMBER"
+          docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
            }
       }
     }
@@ -45,7 +45,8 @@ pipeline {
     stage('Push images') {
       steps{
         echo "Push images to GCR"
-           // docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
+            docker.withRegistry('https://eu.gcr.io', 'gcr:google-gcr') {
+            docker.image(PROJECT_ID  + ":$BUILD_NUMBER").push('latest')
             //myContainer.push(gcr.io/${PROJECT_ID}/$DOCKER_IMAGE_TAG)
             //myContainer.push("latest")
         }
