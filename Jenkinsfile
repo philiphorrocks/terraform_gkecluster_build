@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     SVC_ACCOUNT_KEY = credentials('GKE-terraform')
-    DOCKER_IMAGE_TAG = "my-app:build-${env.BUILD_ID}"
+    DOCKER_IMAGE_TAG = "test-app:build-${env.BUILD_ID}"
     PROJECT_ID  = "terraform-243812"
   }
 
@@ -25,7 +25,7 @@ pipeline {
         script {
           docker.withRegistry('https://eu.gcr.io/terraform-243812', 'gcr:terraform-243812')  {
 
-          def customImage = docker.build(PROJECT_ID  + ":$BUILD_NUMBER")
+          def customImage = docker.build(DOCKER_IMAGE_TAG)
 
           /* Push the container to the custom Registry */
           customImage.push()
