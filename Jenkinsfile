@@ -25,7 +25,7 @@ pipeline {
       steps{
       
         script {
-          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', 'gcr:$PROJECT_ID')  {
+          docker.withRegistry('https://eu.gcr.io/$PROJECT_ID', GCR_PROJECT_ID)  {
 
           def customImage = docker.build(DOCKER_IMAGE_TAG)
 
