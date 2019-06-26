@@ -24,21 +24,20 @@ pipeline {
     }
 
 
-   stage('Build and push Docker image to GCR') {
-
-      steps{
-      
-        script {
-          docker.withRegistry('https://eu.gcr.io', GCR_PROJECT_ID)  {
-
-          def customImage = docker.build(DOCKER_IMAGE_TAG)
-
-          /* Push the container to the custom Registry */
-          customImage.push()
-        }
-      }
-     }
-    }
+   //stage('Build and push Docker image to GCR') {
+   //   steps{
+   //   
+   //     script {
+   //       docker.withRegistry('https://eu.gcr.io', GCR_PROJECT_ID)  {
+   // 
+   //       def customImage = docker.build(DOCKER_IMAGE_TAG)
+   //
+   //       /* Push the container to the custom Registry */
+   //       customImage.push()
+   //     }
+   //   }
+   //  }
+   // }
 
     stage('TF Plan') {
       steps {
